@@ -5,3 +5,5 @@
 /playwright/.cache/
 /.ignore/
 results.xml
+
+**/pacts/

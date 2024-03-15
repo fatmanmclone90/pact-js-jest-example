@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch app.js"
+    "start": "node --env-file=.env --watch app.js",
+    "test": "npx jest provider.spec.js --force-exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.7",
     "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "12.3.0",
+    "jest": "^29.7.0"
   }
 }

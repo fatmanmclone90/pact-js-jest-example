@@ -1,6 +1,6 @@
 {
-  "name": "fake-consumer",
-  "version": "0.0.5",
+  "name": "fake-consumer-2",
+  "version": "0.0.3",
   "description": "Simple API for a PACT demo",
   "main": "app.js",
   "scripts": {
