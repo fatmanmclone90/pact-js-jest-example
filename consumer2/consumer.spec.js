@@ -1,50 +1,27 @@
-const path = require('path');
+const { pactWith } = require ('jest-pact/dist/v3');
 const { getProduct } = require('./productClient.js');
-const { PactV3, MatchersV3 } = require('@pact-foundation/pact');
+const { singleProductResponse } = require('./pact.fixtures.js');
 
-const {
-  atLeastLike,
-  eachLike,
-  like,
-  integer,
-  string,
-} = MatchersV3;
-
-const provider = new PactV3({
-  dir: path.resolve(process.cwd(), 'pacts'),
-  consumer: 'APIConsumer2',
-  provider: 'ProductsAPI',
-});
-
-const EXPECTED_PRODUCT = { 
-    id: 1,
-    name: 'Fork'
-}; 
-
-describe('Products API', () => {
-  describe('When a GET request is made to /products/{:Id}', () => {
-    test('it should return a single product', async () => {
+pactWith({ consumer: 'APIConsumer2', provider: 'ProductsAPI' }, (interaction) => {
+  interaction('When a GET request is made to /products/{:Id}', ({ provider, execute }) => {
+    beforeEach(() =>
       provider
-        .uponReceiving('a request to for a product')
-        .withRequest({
+        .given('Product exists')
+        .uponReceiving('A request for products')
+          .withRequest({
           method: 'GET',
-          path: '/products/1', // should this be hard coded?
+          path: '/products/1',
           headers: { Accept: 'application/json' },
         })
-        .willRespondWith({
-          status: 200,
-          body: EXPECTED_PRODUCT,
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-          }
-        });
+        .willRespondWith(singleProductResponse)
+    );
 
-      await provider.executeTest(async mockServer => {
-        process.env.PROVIDER_API_PORT = mockServer.port
-        const product = await getProduct(1);
+    execute('it should return a single product', async (mockServer) => {
+      process.env.PROVIDER_API_PORT = mockServer.port;
 
-        expect(product).toEqual(EXPECTED_PRODUCT);
-      });
-    });
+      const product = await getProduct(1);
+
+      expect(product).toEqual(singleProductResponse.body);
+    })
   });
 });

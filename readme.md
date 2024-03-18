@@ -17,6 +17,8 @@ PACT Contract tests based on:
 - <https://docs.pact.io/5-minute-getting-started-guide>
 - <https://github.com/mdcruz/pact-js-example/blob/main/package.json>
 
+Tests use [Jest-Pact](https://www.npmjs.com/package/jest-pact).
+
 ## PACT Broker
 
 Assumes a PACT broker running locally using DOCKER Compose
@@ -46,8 +48,13 @@ npm run publish:pact
 
 Consumers will publish separate contracts for the same provider.
 
+## Vanilla Jest Example
+
+[See](https://github.com/fatmanmclone90/pact-js-example).
+
 ## To Do
 
-- Investigate [Jest-Pact](https://www.npmjs.com/package/jest-pact)
+- Switch provider to jest-pact
+- Investigate switching to JS modules
 - Fix versioning before publish.  `npm run publish:pact` failing to update version before publishing.
 - Investigate why JEST command is not exiting gracefully.  Requiring `--force-exit`
