@@ -7,6 +7,18 @@ Repository contains:
 - 1 provider
 - 2 consumers, each using a different API endpoint on the consumer
 
+## Consumer 1
+
+Built using [Fastify](https://fastify.dev/) and as a ESSM Module (experimental support in JEST).  Uses endpoint `/products`.
+
+## Consumer 2
+
+Built using [express](https://expressjs.com/) and using CommonJS.  Uses endpoint `/product/:id`.
+
+## Provider
+
+Built using [express](https://expressjs.com/) and using CommonJS.
+
 Based off of code from:
 
 - <https://medium.com/@onejohi/building-a-simple-rest-api-with-nodejs-and-express-da6273ed7ca9>
