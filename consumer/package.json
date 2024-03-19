@@ -4,19 +4,20 @@
   "description": "Simple API for a PACT demo",
   "main": "app.js",
   "scripts": {
-    "start": "node --env-file=.env --watch app.js",
-    "test": "npx jest consumer.spec.js",
+    "start": "node --env-file=.env --watch consumer.js",
+    "test": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest consumer.spec.js",
     "publish:pact": "npm version patch && npx pact-broker publish .\\pacts --broker-base-url=http://localhost:9292 --consumer-app-version %npm_package_version%"
   },
   "author": "",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
     "axios": "^1.6.7",
-    "express": "^4.18.3"
+    "cross-env": "^7.0.3",
+    "fastify": "^4.26.2"
   },
   "devDependencies": {
     "@pact-foundation/pact": "12.3.0",
-    "jest": "^29.7.0",
     "jest-pact": "^0.11.0"
   }
 }

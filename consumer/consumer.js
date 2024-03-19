@@ -1,19 +1,26 @@
-var express = require("express");
-const { getProducts} = require('./productClient.js');
+// import { express } from 'express';
+import { getProducts } from "./productsClient.js";
+import Fastify from "fastify";
 
-var app = express();
-
-app.get("/health", async (req, res, next) => {
-    return res.json({
-        consumerPort: process.env.CONSUMER_API_PORT,
-        providerPort: process.env.PROVIDER_API_PORT
-    });
-});
-app.get("/products", async (req, res, next) => {
-    const text = await getProducts();
-    return res.json(text);
+const app = Fastify({
+  logger: true,
 });
 
-app.listen(process.env.CONSUMER_API_PORT, () => {
- console.log(`Consumer running on port ${process.env.CONSUMER_API_PORT}`);
+app.get("/health", async function handler(request, response) {
+  return {
+    consumerPort: process.env.CONSUMER_API_PORT,
+    providerPort: process.env.PROVIDER_API_PORT,
+  };
+});
+app.get("/products", async function handler(request, response) {
+  const text = await getProducts();
+  return text;
+});
+
+app.listen({ port: process.env.CONSUMER_API_PORT }, (err, address) => {
+  if (err) {
+    app.log.error(err);
+    throw err;
+  }
+  app.log.info(`Listener on ${address}`);
 });

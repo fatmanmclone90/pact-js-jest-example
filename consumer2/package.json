@@ -4,7 +4,7 @@
   "description": "Simple API for a PACT demo",
   "main": "app.js",
   "scripts": {
-    "start": "node --env-file=.env --watch app.js",
+    "start": "node --env-file=.env --watch consumer.js",
     "test": "npx jest consumer.spec.js",
     "publish:pact": "npm version patch && npx pact-broker publish .\\pacts --broker-base-url=http://localhost:9292 --consumer-app-version %npm_package_version%"
   },

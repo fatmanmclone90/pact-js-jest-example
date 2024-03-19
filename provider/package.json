@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env --watch app.js",
+    "start": "node --env-file=.env --watch provider.js",
     "test": "npx jest provider.spec.js --force-exit"
   },
   "author": "",
